@@ -38,8 +38,8 @@ let player = {
 
 /* =============== EVENTOS =============== */
 
-buttons.addEventListener('mousedown', move)
-buttons.addEventListener('mouseup', stop)
+buttons.addEventListener('touchstart', move)
+buttons.addEventListener('touchend', stop)
 document.addEventListener('keydown', move)
 document.addEventListener('keyup', stop)
 
