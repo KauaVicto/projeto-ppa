@@ -1,11 +1,11 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: cursive;
 }
 
-body{
+body {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -14,9 +14,43 @@ body{
     align-items: center;
 }
 
-.container canvas{
+.container canvas {
     width: 600px;
     height: 600px;
     border: 1px solid black;
     background-color: aliceblue;
+}
+
+#container-buttons{
+    position: relative;
+    width: 200px;
+    height: 120px;
+    border: 1px solid black;
+}
+#container-buttons .btn-move {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+#w{
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+#s{
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+#a{
+    bottom: 0;
+    left: 0;
+}
+#d{
+    bottom: 0;
+    right: 0;
 }

@@ -1,6 +1,10 @@
 const cnv = document.getElementById('cnv')
 const ctx = cnv.getContext('2d')
 
+const buttons = document.getElementById('container-buttons')
+
+
+
 let sprite_player = new Image()
 sprite_player.src = "img/sprite.png"
 
@@ -34,9 +38,17 @@ let player = {
 
 /* =============== EVENTOS =============== */
 
-document.addEventListener('keydown', function (e) {
+buttons.addEventListener('mousedown', move)
+buttons.addEventListener('mouseup', stop)
+document.addEventListener('keydown', move)
+document.addEventListener('keyup', stop)
+
+function move(e){
     e.preventDefault
-    switch (e.key) {
+
+    id = (e.target.id != '') ? e.target.id : e.key
+
+    switch (id) {
         case 'w':
             player.mvUp = true
             break;
@@ -52,10 +64,13 @@ document.addEventListener('keydown', function (e) {
         default:
             break;
     }
-})
-document.addEventListener('keyup', function (e) {
+}
+function stop(e){
     e.preventDefault
-    switch (e.key) {
+
+    id = (e.target.id != '') ? e.target.id : e.key
+
+    switch (id) {
         case 'w':
             player.mvUp = false
             break;
@@ -71,7 +86,7 @@ document.addEventListener('keyup', function (e) {
         default:
             break;
     }
-})
+}
 
 /* =============== FUNÇÕES =============== */
 
