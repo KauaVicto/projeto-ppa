@@ -8,6 +8,7 @@ const buttons = document.getElementById('container-buttons')
 let sprite_player = new Image()
 sprite_player.src = "img/sprite.png"
 
+// Chama a função que verifica se é mobile ou não
 let isMobile = detectar_mobile()
 
 /* =============== OBJETOS =============== */
@@ -39,12 +40,17 @@ let player = {
 
 /* =============== EVENTOS =============== */
 
+// Verifica se o dispositivo é mobile ou não para adicionar os eventos
 if (isMobile) {
     buttons.style.display = 'block'
+    cnv.style.width = '50vw'
+    cnv.style.height = '50vw'
     buttons.addEventListener('touchstart', move)
     buttons.addEventListener('touchend', stop)
 } else {
     buttons.style.display = 'none'
+    cnv.style.width = '50vh'
+    cnv.style.height = '50vh'
     document.addEventListener('keydown', move)
     document.addEventListener('keyup', stop)
 }
@@ -97,6 +103,7 @@ function stop(e) {
 
 /* =============== FUNÇÕES =============== */
 
+// Verifica e o dispositivo é mobile ou pc
 function detectar_mobile() {
     if (navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
