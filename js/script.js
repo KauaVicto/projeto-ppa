@@ -8,6 +8,7 @@ const buttons = document.getElementById('container-buttons')
 let sprite_player = new Image()
 sprite_player.src = "img/sprite.png"
 
+let isMobile = detectar_mobile()
 
 /* =============== OBJETOS =============== */
 
@@ -38,12 +39,18 @@ let player = {
 
 /* =============== EVENTOS =============== */
 
-buttons.addEventListener('touchstart', move)
-buttons.addEventListener('touchend', stop)
-document.addEventListener('keydown', move)
-document.addEventListener('keyup', stop)
+if (isMobile) {
+    buttons.style.display = 'block'
+    buttons.addEventListener('touchstart', move)
+    buttons.addEventListener('touchend', stop)
+} else {
+    buttons.style.display = 'none'
+    document.addEventListener('keydown', move)
+    document.addEventListener('keyup', stop)
+}
 
-function move(e){
+
+function move(e) {
     e.preventDefault
 
     id = (e.target.id != '') ? e.target.id : e.key
@@ -65,7 +72,7 @@ function move(e){
             break;
     }
 }
-function stop(e){
+function stop(e) {
     e.preventDefault
 
     id = (e.target.id != '') ? e.target.id : e.key
@@ -90,8 +97,25 @@ function stop(e){
 
 /* =============== FUNÇÕES =============== */
 
+function detectar_mobile() {
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+    ) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
 // RENDERIZA NA PÁGINA OS SPRITES E DESENHOS
-function desenhar() { 
+function desenhar() {
     ctx.clearRect(0, 0, page.larg, page.alt)
 
     // ctx.fillRect(player.posX, player.posY, player.larg, player.alt)
@@ -133,15 +157,15 @@ function atualizar() {
 
 // VERIFICA SE O PERSONAGEM ESTÁ COLIDINDO COM A PAREDE
 function verificaColisao() {
-    if(player.posX < 0){
+    if (player.posX < 0) {
         player.posX = 0
-    }else if((player.posX + player.larg) > page.larg){
+    } else if ((player.posX + player.larg) > page.larg) {
         player.posX = page.larg - player.larg
     }
 
-    if(player.posY < 0){
+    if (player.posY < 0) {
         player.posY = 0
-    }else if((player.posY + player.alt) > page.alt){
+    } else if ((player.posY + player.alt) > page.alt) {
         player.posY = page.alt - player.alt
     }
 }
@@ -153,7 +177,7 @@ function loop() {
     atualizar()
     verificaColisao()
     desenhar()
-    
+
     window.requestAnimationFrame(loop, cnv)
 }
 

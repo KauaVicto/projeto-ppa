@@ -15,8 +15,8 @@ body {
 }
 
 .container canvas {
-    width: 50vw;
-    height: 50vw;
+    width: 50vh;
+    height: 50vh;
     border: 1px solid black;
     background-color: aliceblue;
 }
@@ -25,13 +25,12 @@ body {
     position: relative;
     width: 200px;
     height: 120px;
-    border: 1px solid black;
 }
 #container-buttons .btn-move {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: red;
+    background-color: gray;
     color: white;
     font-size: 1.5rem;
     text-align: center;
