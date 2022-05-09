@@ -15,7 +15,7 @@ let isMobile = detectar_mobile()
 
 // OBJETO ÁREA DO GAME
 let page = {
-    larg: 600,
+    larg: 1200,
     alt: 600
 }
 
@@ -30,12 +30,17 @@ let player = {
     larg: 96,
     alt: 96,
     speed: 5,
+    speedJump: 5,
+    forceJump: -15,
+    maxSpeedJump: 15,
+    gravidade: 1,
     contAnim: 0,
     speedAnim: 10, // Inversamente proporcional
     mvUp: false,
     mvDown: false,
     mvRight: false,
     mvLeft: false,
+    isJumping: false
 }
 
 /* =============== EVENTOS =============== */
@@ -49,8 +54,8 @@ if (isMobile) {
     buttons.addEventListener('touchend', stop)
 } else {
     buttons.style.display = 'none'
-    cnv.style.width = '50vh'
-    cnv.style.height = '50vh'
+    cnv.style.width = '1200px'
+    cnv.style.height = '600px'
     document.addEventListener('keydown', move)
     document.addEventListener('keyup', stop)
 }
@@ -64,9 +69,6 @@ function move(e) {
     switch (id) {
         case 'w':
             player.mvUp = true
-            break;
-        case 's':
-            player.mvDown = true
             break;
         case 'd':
             player.mvRight = true
@@ -86,9 +88,6 @@ function stop(e) {
     switch (id) {
         case 'w':
             player.mvUp = false
-            break;
-        case 's':
-            player.mvDown = false
             break;
         case 'd':
             player.mvRight = false
@@ -135,12 +134,17 @@ function desenhar() {
 
 // MOVIMENTAÇÃO DO PERSONAGEM
 function atualizar() {
-    if (player.mvUp && !player.mvDown) {
-        player.posY -= player.speed
-        player.srcY = 96
-    } else if (!player.mvUp && player.mvDown) {
-        player.posY += player.speed
-        player.srcY = 0
+
+    player.posY += player.speedJump;
+    if(player.speedJump <= player.maxSpeedJump){
+        player.speedJump += player.gravidade;
+    }
+
+    if (player.mvUp) {
+        if(!player.isJumping){
+            player.speedJump = player.forceJump
+            player.isJumping = true
+        }
     }
     if (player.mvRight && !player.mvLeft) {
         player.posX += player.speed
@@ -173,6 +177,7 @@ function verificaColisao() {
     if (player.posY < 0) {
         player.posY = 0
     } else if ((player.posY + player.alt) > page.alt) {
+        player.isJumping = false
         player.posY = page.alt - player.alt
     }
 }

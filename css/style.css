@@ -15,8 +15,8 @@ body {
 }
 
 .container canvas {
-    width: 50vh;
-    height: 50vh;
+    width: 100vh;
+    height: 100vh;
     border: 1px solid black;
     background-color: aliceblue;
 }
